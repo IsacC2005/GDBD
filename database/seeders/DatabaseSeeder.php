@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,5 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(ShieldSeeder::class);
+
+        if ((bool) env('RUN_DATA_FAKER', false)) {
+            $this->call(DataFakerSeeder::class);
+        }
     }
 }
