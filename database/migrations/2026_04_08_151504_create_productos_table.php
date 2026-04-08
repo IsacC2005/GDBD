@@ -19,7 +19,9 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->float('precio_venta');
             $table->float('costo_promedio')->nullable();
+            $table->float('stock')->default(0);
             $table->float('stock_minimo');
+            $table->float('stock_maximo')->nullable();
             $table->boolean('state')->default(true);
             $table->softDeletes();
             $table->timestamps();

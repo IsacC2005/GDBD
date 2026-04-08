@@ -15,6 +15,10 @@ class Producto extends Model implements HasMedia
     use InteractsWithMedia;
     use SoftDeletes;
 
+    protected $attributes = [
+        'stock' => 0,
+    ];
+
     protected $fillable = [
         'categoria_id',
         'sku',
@@ -23,8 +27,21 @@ class Producto extends Model implements HasMedia
         'precio_venta',
         'costo_promedio',
         'stock_minimo',
+        'stock_maximo',
         'state',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'precio_venta' => 'float',
+            'costo_promedio' => 'float',
+            'stock' => 'float',
+            'stock_minimo' => 'float',
+            'stock_maximo' => 'float',
+            'state' => 'boolean',
+        ];
+    }
 
     public function categoria(): BelongsTo
     {

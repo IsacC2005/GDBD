@@ -35,6 +35,12 @@ class ProductoForm
                 TextInput::make('stock_minimo')
                     ->required()
                     ->numeric(),
+                TextInput::make('stock_maximo')
+                    ->numeric(),
+                TextInput::make('stock')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->numeric(),
                 Toggle::make('state')
                     ->required(),
                 SpatieMediaLibraryFileUpload::make('imagen')

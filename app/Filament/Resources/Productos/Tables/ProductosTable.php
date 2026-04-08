@@ -36,6 +36,12 @@ class ProductosTable
                 TextColumn::make('stock_minimo')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('stock_maximo')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('stock')
+                    ->numeric()
+                    ->sortable(),
                 IconColumn::make('state')
                     ->boolean(),
                 SpatieMediaLibraryImageColumn::make('imagen')
