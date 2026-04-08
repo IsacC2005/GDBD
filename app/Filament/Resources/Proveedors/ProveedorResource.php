@@ -11,7 +11,6 @@ use App\Models\Proveedor;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -20,7 +19,29 @@ class ProveedorResource extends Resource
 {
     protected static ?string $model = Proveedor::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-storefront';
+
+    protected static ?int $navigationSort = 20;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Gestión Comercial';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Proveedores';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'proveedor';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'proveedores';
+    }
 
     public static function form(Schema $schema): Schema
     {

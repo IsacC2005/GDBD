@@ -11,14 +11,35 @@ use App\Models\Inventario;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class InventarioResource extends Resource
 {
     protected static ?string $model = Inventario::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-archive-box';
+
+    protected static ?int $navigationSort = 50;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Gestión Comercial';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Inventario';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'movimiento';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'inventario';
+    }
 
     public static function form(Schema $schema): Schema
     {

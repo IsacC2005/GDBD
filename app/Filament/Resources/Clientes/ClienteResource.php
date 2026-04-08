@@ -11,7 +11,6 @@ use App\Models\Cliente;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -20,7 +19,29 @@ class ClienteResource extends Resource
 {
     protected static ?string $model = Cliente::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?int $navigationSort = 10;
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Gestión Comercial';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Clientes';
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'cliente';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'clientes';
+    }
 
     public static function form(Schema $schema): Schema
     {
