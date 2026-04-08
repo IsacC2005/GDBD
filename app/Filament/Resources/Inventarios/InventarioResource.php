@@ -62,8 +62,8 @@ class InventarioResource extends Resource
     {
         return [
             'index' => ListInventarios::route('/'),
-            'create' => CreateInventario::route('/create'),
-            'edit' => EditInventario::route('/{record}/edit'),
+            // 'create' => CreateInventario::route('/create'),
+            // 'edit' => EditInventario::route('/{record}/edit'),
         ];
     }
 }
