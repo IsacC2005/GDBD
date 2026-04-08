@@ -124,10 +124,12 @@ class DataFakerSeeder extends Seeder
 
         if ($existentes < $objetivo) {
             $faltantes = $objetivo - $existentes;
+            $chunk = 5_000;
+            $offset = (int) DB::table('clientes')->max('id');
             $rows = [];
 
             for ($i = 0; $i < $faltantes; $i++) {
-                $numero = $existentes + $i + 1;
+                $numero = $offset + $i + 1;
                 $rows[] = [
                     'cedula' => str_pad((string) $numero, 10, '0', STR_PAD_LEFT),
                     'nombre' => 'Cliente '.$numero,
@@ -136,9 +138,16 @@ class DataFakerSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
+
+                if (count($rows) >= $chunk) {
+                    DB::table('clientes')->insertOrIgnore($rows);
+                    $rows = [];
+                }
             }
 
-            DB::table('clientes')->insert($rows);
+            if ($rows !== []) {
+                DB::table('clientes')->insertOrIgnore($rows);
+            }
         }
 
         return DB::table('clientes')->pluck('id')->map(fn ($id): int => (int) $id)->all();
@@ -212,13 +221,14 @@ class DataFakerSeeder extends Seeder
         $insertados = 0;
 
         while ($insertados < $totalRegistros) {
-            $rows = [];
             $lote = min($chunkSize, $totalRegistros - $insertados);
+            $rows = [];
 
             for ($i = 0; $i < $lote; $i++) {
                 $productoId = $productoIds[array_rand($productoIds)];
-                $cantidad = (float) random_int(1, 200);
-                $precio = $precioPorProducto[$productoId] * ((float) random_int(60, 98) / 100);
+                $cantidad = (float) random_int(10, 300);
+                $precioBase = $precioPorProducto[$productoId] ?? 10.0;
+                $precio = max(0.01, $precioBase * ((float) random_int(70, 95) / 100));
                 $fecha = $this->randomDate($startDate, $endDate);
 
                 $stockPorProducto[$productoId] += $cantidad;
