@@ -15,10 +15,14 @@ class InventarioForm
         return $schema
             ->components([
                 Select::make('producto_id')
-                    ->relationship('producto', 'id')
+                    ->relationship('producto', 'nombre')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 Select::make('proveedor_id')
-                    ->relationship('proveedor', 'id'),
+                    ->relationship('proveedor', 'nombre_empresa')
+                    ->searchable()
+                    ->preload(),
                 TextInput::make('precio')
                     ->required()
                     ->numeric(),
@@ -28,7 +32,12 @@ class InventarioForm
                 TextInput::make('cantidad')
                     ->required()
                     ->numeric(),
-                TextInput::make('tipo_movimiento')
+                Select::make('tipo_movimiento')
+                    ->options([
+                        'entrada' => 'entrada',
+                        'salida' => 'salida',
+                        'ajuste' => 'ajuste',
+                    ])
                     ->required(),
                 DateTimePicker::make('fecha_movimiento')
                     ->required(),
