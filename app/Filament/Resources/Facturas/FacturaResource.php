@@ -62,8 +62,8 @@ class FacturaResource extends Resource
     {
         return [
             'index' => ListFacturas::route('/'),
-            'create' => CreateFactura::route('/create'),
-            'edit' => EditFactura::route('/{record}/edit'),
+            // 'create' => CreateFactura::route('/create'),
+            // 'edit' => EditFactura::route('/{record}/edit'),
         ];
     }
 }

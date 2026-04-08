@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Factura extends Model
 {
@@ -18,6 +18,16 @@ class Factura extends Model
         'impuestos',
         'total',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'fecha_emicion' => 'datetime',
+            'subtotal' => 'float',
+            'impuestos' => 'float',
+            'total' => 'float',
+        ];
+    }
 
     public function movimiento(): BelongsTo
     {

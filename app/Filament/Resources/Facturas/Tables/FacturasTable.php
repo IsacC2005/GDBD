@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Facturas\Tables;
 
+use App\Models\Factura;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,9 +14,11 @@ class FacturasTable
     {
         return $table
             ->columns([
-                TextColumn::make('movimiento.id')
+                TextColumn::make('movimiento.producto.nombre')
+                    ->label('Producto')
                     ->searchable(),
-                TextColumn::make('cliente.id')
+                TextColumn::make('cliente.nombre')
+                    ->label('Cliente')
                     ->searchable(),
                 TextColumn::make('numero_factura')
                     ->searchable(),
@@ -49,12 +51,14 @@ class FacturasTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                Action::make('descargar_pdf')
+                    ->label('Descargar PDF')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->url(fn (Factura $record): string => route('facturas.pdf.download', $record))
+                    ->openUrlInNewTab(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                BulkActionGroup::make([]),
             ]);
     }
 }
