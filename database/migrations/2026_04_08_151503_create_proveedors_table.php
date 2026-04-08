@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('correo');
             $table->string('nombre_contacto');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

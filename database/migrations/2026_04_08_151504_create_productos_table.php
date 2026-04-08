@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('stock_minimo');
             $table->boolean('state')->default(true);
             $table->string('imagen');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

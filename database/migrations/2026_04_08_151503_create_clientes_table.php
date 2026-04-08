@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('correo');
             $table->string('telefono');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
