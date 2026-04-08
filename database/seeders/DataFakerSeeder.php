@@ -369,7 +369,7 @@ class DataFakerSeeder extends Seeder
     {
         $timestamp = random_int($startDate->getTimestamp(), $endDate->getTimestamp());
 
-        return date('Y-m-d H:i:s', $timestamp);
+        return gmdate('Y-m-d H:i:s', $timestamp);
     }
 
     /**
