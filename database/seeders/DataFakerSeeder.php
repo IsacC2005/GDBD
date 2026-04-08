@@ -17,6 +17,8 @@ class DataFakerSeeder extends Seeder
         $ventasObjetivo = (int) env('DATA_FAKER_VENTAS', 1_500_000);
         $chunkSize = (int) env('DATA_FAKER_CHUNK', 5000);
 
+        DB::statement("SET time_zone = '+00:00'");
+
         $this->command?->warn('Iniciando DataFakerSeeder (volumen alto)...');
         $this->command?->line("Compras: {$comprasObjetivo} | Ventas: {$ventasObjetivo} | Ventana: {$years} años");
 
