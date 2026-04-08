@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Producto extends Model
+class Producto extends Model implements HasMedia
 {
+    use InteractsWithMedia;
     use SoftDeletes;
 
     protected $fillable = [
@@ -21,7 +24,6 @@ class Producto extends Model
         'costo_promedio',
         'stock_minimo',
         'state',
-        'imagen',
     ];
 
     public function categoria(): BelongsTo

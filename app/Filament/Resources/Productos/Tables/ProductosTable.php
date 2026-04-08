@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -18,7 +19,8 @@ class ProductosTable
     {
         return $table
             ->columns([
-                TextColumn::make('categoria.id')
+                TextColumn::make('categoria.nombre')
+                    ->label('Categoría')
                     ->searchable(),
                 TextColumn::make('sku')
                     ->label('SKU')
@@ -36,8 +38,10 @@ class ProductosTable
                     ->sortable(),
                 IconColumn::make('state')
                     ->boolean(),
-                TextColumn::make('imagen')
-                    ->searchable(),
+                SpatieMediaLibraryImageColumn::make('imagen')
+                    ->collection('productos')
+                    ->label('Imagen')
+                    ->square(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

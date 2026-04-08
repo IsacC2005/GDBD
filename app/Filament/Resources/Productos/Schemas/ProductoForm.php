@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Productos\Schemas;
 
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -15,7 +16,9 @@ class ProductoForm
         return $schema
             ->components([
                 Select::make('categoria_id')
-                    ->relationship('categoria', 'id')
+                    ->relationship('categoria', 'nombre')
+                    ->searchable()
+                    ->preload()
                     ->required(),
                 TextInput::make('sku')
                     ->label('SKU')
@@ -34,7 +37,9 @@ class ProductoForm
                     ->numeric(),
                 Toggle::make('state')
                     ->required(),
-                TextInput::make('imagen')
+                SpatieMediaLibraryFileUpload::make('imagen')
+                    ->collection('productos')
+                    ->image()
                     ->required(),
             ]);
     }

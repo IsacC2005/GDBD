@@ -21,7 +21,6 @@ return new class extends Migration
             $table->float('costo_promedio')->nullable();
             $table->float('stock_minimo');
             $table->boolean('state')->default(true);
-            $table->string('imagen');
             $table->softDeletes();
             $table->timestamps();
         });
