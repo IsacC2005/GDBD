@@ -15,21 +15,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'avatar_url', 'email', 'password'])]
+#[Fillable(['name', 'avatar_url', 'email', 'password', 'pregunta1', 'respuesta1', 'pregunta2', 'respuesta2', 'pregunta3', 'respuesta3'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasPanelShield, HasRoles, Notifiable;
-
-    protected $fillable = [
-        'pregunta1',
-        'respuesta1',
-        'pregunta2',
-        'respuesta2',
-        'pregunta3',
-        'respuesta3',
-    ];
 
     /**
      * Get the attributes that should be cast.
