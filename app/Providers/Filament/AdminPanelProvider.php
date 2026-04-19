@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Dashboard;
+use App\Livewire\SecurityQuestions;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -17,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -55,6 +57,17 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
+                BreezyCore::make()
+                    ->myProfile(
+                        shouldRegisterUserMenu: true, // Sets the 'account' link in the panel User Menu (default = true)
+                        userMenuLabel: 'Mi Perfil', // Customizes the 'account' link label in the panel User Menu (default = null)
+                        shouldRegisterNavigation: true, // Adds a main navigation item for the My Profile page (default = false)
+                        navigationGroup: 'Settings', // Sets the navigation group for the My Profile page (default = null)
+                        hasAvatars: true, // Enables the avatar upload form component (default = false)
+                    )
+                    ->myProfileComponents([
+                        'security_questions' => SecurityQuestions::class,
+                    ]),
             ])
             ->authMiddleware([
                 Authenticate::class,
