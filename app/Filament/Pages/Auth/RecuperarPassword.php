@@ -10,7 +10,9 @@ use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Notifications\Notification;
-use Filament\Pages\SimplePage;
+use Filament\Pages\Concerns\HasMaxWidth;
+use Filament\Pages\Concerns\HasTopbar;
+use Filament\Pages\Page;
 use Filament\Panel;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\EmbeddedSchema;
@@ -20,9 +22,15 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Locked;
 
-class RecuperarPassword extends SimplePage
+class RecuperarPassword extends Page
 {
+    use HasMaxWidth;
+    use HasTopbar;
     use WithRateLimiting;
+
+    protected string $view = 'filament-panels::pages.simple';
+
+    protected static string $layout = 'filament-panels::components.layout.simple';
 
     protected static ?string $slug = 'recuperar-password';
 
@@ -40,6 +48,20 @@ class RecuperarPassword extends SimplePage
     public static function getWithoutRouteMiddleware(Panel $panel): string|array
     {
         return [Authenticate::class];
+    }
+
+    public function hasLogo(): bool
+    {
+        return true;
+    }
+
+    protected function getLayoutData(): array
+    {
+        return [
+            'hasTopbar' => $this->hasTopbar(),
+            'maxContentWidth' => $maxContentWidth = $this->getMaxWidth() ?? $this->getMaxContentWidth(),
+            'maxWidth' => $maxContentWidth,
+        ];
     }
 
     public function mount(): void
