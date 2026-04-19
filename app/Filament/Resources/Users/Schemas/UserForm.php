@@ -22,7 +22,9 @@ class UserForm
                     ->password()
                     ->required(),
                 Select::make('roles')
-                    ->relationship('roles', 'name')
+                    ->relationship('roles', 'name', function ($query) {
+                        return $query->whereNotIn('name', ['super_admin', 'panel_user']);
+                    })
                     ->preload(),
             ]);
     }
